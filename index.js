@@ -18,10 +18,50 @@ mongoose
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
-  })
+   })
+  
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+      console.log("Connection success!");
+      updateDatabase();
   })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+  
+  //create
+  async function updateDatabase() {
+    try {
+    const receipeCreated = await Recipe.create({
+      title: "Pasta Pesto",
+      level: "Easy Peasy",
+      ingredients: ["Pasta", "Pesto", "Mangericao", "Pinhao", "Azeite"],
+      cuisine: "Italian",
+      dishType: "main_course",
+      image: "",
+      duration: 10,
+      creator: "Stefano",
+      created: "",
+    });
+    console.log(receipeCreated.title);
+
+    await Recipe.insertMany(data)
+
+    data.forEach(element => {
+      console.log(element.title)
+    })
+
+
+    await Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, 
+    {duration: 100,});
+  
+    await Recipe.deleteOne({ title: "Carrot Cake"
+    });
+    console.log("sucess", Recipe.deleteOne)
+
+  } catch (e) {
+    console.log("error occurred", e);
+  } finally {
+    mongoose.connection.close();
+  }
+}
